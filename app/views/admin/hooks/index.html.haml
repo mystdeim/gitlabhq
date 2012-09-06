@@ -23,7 +23,7 @@
     Hooks
     %small (#{@hooks.count})
   %br
-  %table.admin-table
+  %table
     %tr
       %th URL
       %th Method
@@ -37,3 +37,4 @@
         %td POST
         %td
           = link_to 'Remove', admin_hook_path(hook), confirm: 'Are you sure?', method: :delete, class: "danger btn small right"
+
