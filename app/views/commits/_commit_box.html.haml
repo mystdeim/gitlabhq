@@ -18,7 +18,7 @@
   .commit-info
     .row
       .span4
-        = image_tag gravatar_icon(@commit.author_email, 40), class: "avatar"
+        = avatar_icon(User.find_by_email(commit.author_email), 90, {class: "avatar"})
         .author
           %strong= @commit.author_name
           authored

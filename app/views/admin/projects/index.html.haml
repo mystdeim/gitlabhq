@@ -1,4 +1,4 @@
-%h3.page_title
+%h3
   Projects
   = link_to 'New Project', new_admin_project_path, class: "btn small right"
 %br
@@ -6,7 +6,7 @@
   = text_field_tag :name, params[:name], class: "xlarge"
   = submit_tag "Search", class: "btn submit primary"
 
-%table
+%table.admin-table
   %thead
     %th Name
     %th Path

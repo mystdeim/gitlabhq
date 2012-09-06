@@ -22,7 +22,7 @@
             Project
       .account-box
         = link_to profile_path, class: "pic" do
-          = image_tag gravatar_icon(current_user.email)
+          = avatar_icon(current_user)
         .account-links
           = link_to profile_path, class: "username" do
             My profile

@@ -1,6 +1,4 @@
 class UsersProject < ActiveRecord::Base
-  include GitHost
-
   GUEST     = 10
   REPORTER  = 20
   DEVELOPER = 30
@@ -60,7 +58,9 @@ class UsersProject < ActiveRecord::Base
   end
 
   def update_repository
-    git_host.update_repository(project)
+    Gitlab::GitHost.system.new.configure do |c|
+      c.update_project(project.path, project)
+    end
   end
 
   def project_access_human

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905043334) do
+ActiveRecord::Schema.define(:version => 20120905174504) do
 
   create_table "events", :force => true do |t|
     t.string   "target_type"
@@ -98,16 +98,16 @@ ActiveRecord::Schema.define(:version => 20120905043334) do
     t.string   "name"
     t.string   "path"
     t.text     "description"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
-    t.boolean  "private_flag",           :default => true, :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.boolean  "private_flag",           :default => true,     :null => false
     t.string   "code"
     t.integer  "owner_id"
-    t.string   "default_branch"
-    t.boolean  "issues_enabled",         :default => true, :null => false
-    t.boolean  "wall_enabled",           :default => true, :null => false
-    t.boolean  "merge_requests_enabled", :default => true, :null => false
-    t.boolean  "wiki_enabled",           :default => true, :null => false
+    t.string   "default_branch",         :default => "master", :null => false
+    t.boolean  "issues_enabled",         :default => true,     :null => false
+    t.boolean  "wall_enabled",           :default => true,     :null => false
+    t.boolean  "merge_requests_enabled", :default => true,     :null => false
+    t.boolean  "wiki_enabled",           :default => true,     :null => false
   end
 
   create_table "protected_branches", :force => true do |t|
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20120905043334) do
     t.datetime "locked_at"
     t.string   "extern_uid"
     t.string   "provider"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

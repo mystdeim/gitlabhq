@@ -10,17 +10,19 @@
       Project name is
     .input
       = f.text_field :name, placeholder: "Example Project", class: "xxlarge"
+      = f.submit project.new_record? ? 'Create project' : 'Save Project', class: "btn primary"
 
   %hr
-  .adv_settings
-    %h6 Advanced settings:
+  .alert.alert-info
+    %h5 Advanced settings:
     .clearfix
       = f.label :path do
-        Path
+        Git Clone
       .input
         .input-prepend
-          %strong
-            = text_field_tag :ppath, @admin_project.path_to_repo, class: "xlarge", disabled: true
+          %span.add-on= Gitlab.config.ssh_path
+          = f.text_field :path, placeholder: "example_project", disabled: !!project.id
+          %span.add-on= ".git"
     .clearfix
       = f.label :code do
         URL
@@ -40,9 +42,8 @@
           .input= f.select(:default_branch, project.heads.map(&:name), {}, style: "width:210px;")
 
   - unless project.new_record?
-    %hr
-    .adv_settings
-      %h6 Features:
+    .alert.alert-info
+      %h5 Features:
 
       .clearfix
         = f.label :issues_enabled, "Issues"
@@ -62,8 +63,7 @@
 
   - unless project.new_record?
     .actions
-      = f.submit 'Save Project', class: "btn save-btn"
-      = link_to 'Cancel', admin_projects_path, class: "btn cancel-btn"
+      = f.submit 'Save Project', class: "btn primary"
 
 
 

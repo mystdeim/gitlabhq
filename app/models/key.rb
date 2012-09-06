@@ -1,10 +1,9 @@
 require 'digest/md5'
 
 class Key < ActiveRecord::Base
+  include SshKey
   belongs_to :user
   belongs_to :project
-
-  attr_protected :user_id
 
   validates :title,
             presence: true,
@@ -12,7 +11,6 @@ class Key < ActiveRecord::Base
 
   validates :key,
             presence: true,
-            format: { :with => /ssh-.{3} / },
             length: { within: 0..5000 }
 
   before_save :set_identifier
@@ -51,10 +49,6 @@ class Key < ActiveRecord::Base
     else
       user.projects
     end
-  end
-
-  def last_deploy?
-    Key.where(identifier: identifier).count == 0
   end
 end
 # == Schema Information

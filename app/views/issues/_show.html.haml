@@ -21,7 +21,7 @@
         Edit
 
   - if issue.assignee
-    = image_tag gravatar_icon(issue.assignee_email), class: "avatar"
+    = avatar_icon(User.find_by_email(issue.assignee_email), {class: "avatar"})
   - else
     = image_tag "no_avatar.png", class: "avatar"
 

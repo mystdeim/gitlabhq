@@ -42,7 +42,7 @@
 
 .row
   .span6
-    %table
+    %table.admin-table
       %thead
         %th Open Issues
       - @issues.each do |issue|
@@ -56,12 +56,12 @@
     = paginate @issues, theme: "gitlab"
 
   .span6
-    %table
+    %table.admin-table
       %thead
         %th Participants
       - @users.each do |user|
         %tr
           %td
-            = image_tag gravatar_icon(user.email, 24), width: "24"
+            = avatar_icon(User.find_by_email(user.email), {width: "24"})
             &nbsp;
             = user.name

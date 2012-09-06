@@ -21,6 +21,9 @@ gem "linguist", "~> 1.0.0", :git => "https://github.com/gitlabhq/linguist.git"
 # API
 gem "grape", "~> 0.2.1"
 
+gem 'carrierwave'
+gem 'mini_magick'
+
 # Format dates and times
 # based on human-friendly examples
 gem "stamp"
@@ -107,7 +110,6 @@ group :development, :test do
   gem "awesome_print"
   gem "database_cleaner"
   gem "launchy"
-  gem 'factory_girl_rails'
 end
 
 group :test do
@@ -120,5 +122,5 @@ group :test do
 end
 
 group :production do
-  gem "gitlab_meta", '2.9'
+  gem "gitlab_meta", '2.8'
 end

@@ -35,13 +35,11 @@
     %h3 Latest projects
     %hr
     - @projects.each do |project|
-      %p
+      %h5
         = link_to project.name, [:admin, project]
   .span6
     %h3 Latest users
     %hr
     - @users.each do |user|
-      %p
-        = link_to [:admin, user] do 
-          = user.name
-          %small= user.email
+      %h5
+        = link_to user.name, [:admin, user]

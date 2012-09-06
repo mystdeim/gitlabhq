@@ -28,7 +28,7 @@
           - commit = CommitDecorator.decorate(commit)
           %tr
             %td.author
-              = image_tag gravatar_icon(commit.author_email, 16)
+              = avatar_icon(User.find_by_email(commit.author_email), 16)
               = commit.author_name
             %td.blame_commit
               &nbsp;

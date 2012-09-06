@@ -1,5 +1,6 @@
 .profile_avatar_holder
-  = image_tag gravatar_icon(@user.email, 90), class: "styled_image"
+  = avatar_icon(@user, 90, {class: "styled_image"})
+
 %h3.page_title
   = @user.name
   %br
@@ -43,9 +44,18 @@
         .controls
           = f.text_area :bio, rows: 6, class: "input-xlarge", maxlength: 250
           %span.help-block Tell us about yourself in fewer than 250 characters.
+
+      - if Gitlab.config.disable_gravatar?
+        .control-group
+          = f.label 'My Avatar', class: "control-label"
+          .controls
+            = f.file_field :avatar
+          = f.hidden_field :avatar_cache
+
+
     .span5.right
 
-      -unless Gitlab.config.disable_gravatar?
+      - if !Gitlab.config.disable_gravatar?
         %p.alert.alert-info
           %strong Tip:
           You can change your avatar at gravatar.com
@@ -67,4 +77,4 @@
       = link_to "Add Public Key", new_key_path, class: "btn small right"
 
   .form-actions
-    = f.submit 'Save', class: "btn save-btn"
+    = f.submit 'Save', class: "btn-primary btn"

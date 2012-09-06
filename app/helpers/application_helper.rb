@@ -11,6 +11,23 @@ module ApplicationHelper
     end
   end
 
+  def avatar_icon(user, size = 40, options = {})
+    # if Gitlab.config.disable_gravatar? || user.email.blank?
+    #   if user.avatar?
+    #     options[:size] = "#{size}x#{size}"
+    #     image_tag(user.avatar_url, options)
+    #   else
+    #     image_tag('no_avatar.png', options)
+    #   end
+    # else
+    #   gravatar_prefix = request.ssl? ? "https://secure" : "http://www"
+    #   user.email.strip!
+    #   image_tag("#{gravatar_prefix}.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email.downcase)}?s=#{size}&d=identicon", options)
+    # end
+    options[:size] = "#{size}x#{size}"
+    image_tag(avatar_path(user,size), options)
+  end
+
   def request_protocol
     request.ssl? ? "https" : "http"
   end
@@ -78,16 +95,16 @@ module ApplicationHelper
   end
 
   def show_last_push_widget?(event)
-    event &&
+    event && 
       event.last_push_to_non_root? &&
       !event.rm_ref? &&
-      event.project &&
+      event.project && 
       event.project.merge_requests_enabled
   end
 
   def tab_class(tab_key)
     active = case tab_key
-
+             
              # Project Area
              when :wall; wall_tab?
              when :wiki; controller.controller_name == "wikis"
@@ -127,12 +144,18 @@ module ApplicationHelper
     Digest::SHA1.hexdigest string
   end
 
-  def project_last_activity project
-    activity = project.last_activity
-    if activity && activity.created_at
-      time_ago_in_words(activity.created_at) + " ago"
+  def avatar_path(user, size)
+    if Gitlab.config.disable_gravatar? || user.email.blank?
+      if user.avatar?
+        user.avatar_url
+      else
+        'no_avatar.png'
+      end
     else
-      "Never"
+      gravatar_prefix = request.ssl? ? "https://secure" : "http://www"
+      user.email.strip!
+      "#{gravatar_prefix}.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email.downcase)}?s=#{size}&d=identicon"
     end
   end
+
 end
